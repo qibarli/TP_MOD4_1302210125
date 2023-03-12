@@ -13,6 +13,12 @@ namespace TP_MOD4_KPL
             Console.WriteLine("Kode pos semua Daerah");
             table_kode_pos.getallkodepos();
             Console.WriteLine("\n");
+
+            Console.WriteLine("Door Status");
+
+            DoorMachine door = new DoorMachine();
+
+            door.key();
         }
     }
     class KodePos
@@ -49,6 +55,40 @@ namespace TP_MOD4_KPL
             {
                 Console.WriteLine("- " + i.Key + " : " + i.Value);
             }
+        }
+    }
+
+    class DoorMachine
+    {
+        enum State { Locked, Unlocked };
+
+        public void key()
+        {
+            State state = State.Locked;
+
+            String[] door_status = { "Locked", "Unlocked" };
+            do
+            {
+                Console.WriteLine("Door " + door_status[(int)state]);
+                Console.WriteLine("Keyword : ");
+                String command = Console.ReadLine();
+                switch (state)
+                {
+                    case State.Locked:
+                        if (command == "Buka Pintu")
+                        {
+                            state = State.Unlocked;
+                        }
+                        break;
+                    case State.Unlocked:
+                        if (command == "Kunci Pintu")
+                        {
+                            state = State.Locked;
+                            Console.WriteLine("Door Locked");
+                        }
+                        break;
+                }
+            } while (state != State.Locked);
         }
     }
 }
